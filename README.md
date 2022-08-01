@@ -37,6 +37,7 @@
     - **Figure 13 - 14** : Before running the python programs to generate the figures, you are supposed to run the corresponding program to get result log files. Run `cd ./Auncel/eval/ && ./effect.sh && cd -` to get log files of Auncel.
     Run `cd ./figures/effect/ && ./effect.sh && cd -` to get the two figures.
     - **Figure 15** : The log files are automatically generated when you run `cd ./Auncel/eval/ && ./run.sh && cd -`. 
+    (Please set `<repo>/Auncel/IVF_pro.h/struct Trace -> bs` as 1 to capture every point in the $\varphi - U$ map. ) 
     To draw the figures, please run `cd ./figures/validation && ./validation.sh && cd -`.
     - **Table 3 - 5** : Run `cd ./Auncel/eval/ && ./overhead.sh && cd -` and you will get the corresponding experimental data on the terminal.
     - **Figure 16** : Please refer `<repo>/Auncel/dist/README.md` for the details of distributed experiment. The figure script is `<repo>/figures/dist/figure16.py`
