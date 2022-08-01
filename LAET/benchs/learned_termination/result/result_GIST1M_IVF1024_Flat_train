@@ -1,0 +1,13 @@
+Thread: 10
+Preparing dataset GIST1M
+sizes: B (1000000, 960) Q (500, 960) T (1000000, 960) gt 500 * 1
+loading populated_index/GIST1M_IVF1024,Flat_populated.index
+ParameterSpace initialize done
+iteration 0
+paramtersets: ['search_mode=1,pred_max=1024']
+                            R@1    R@10   R@100  time(ms)
+search_mode=1,pred_max=1024 0.5040 0.5040 0.5040 2.0345
+param_list = ['search_mode=1,pred_max=1024']
+recall target = [0.504]
+average latency(ms) = [2.0345]
+result_GIST1M_IVF1024,Flat = [[2.0345], [0.504]]

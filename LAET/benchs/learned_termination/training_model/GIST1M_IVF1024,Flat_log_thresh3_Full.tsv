@@ -1,0 +1,39 @@
+training count: 500 valid rows out of 500 total
+testing count: 1000 total rows
+Train time	1.4632441997528076
+Calculate feature importance...
+['F0_query']	0.9390204369257651
+['F4_d_1st_to_d_10th']	0.026464130025537904
+['F1_c_10th_to_c_1st']	0.013313498762288961
+['F5_d_1st_to_c_1st']	0.009321979499792993
+['F3_d_10th']	0.0058197353255704624
+['F1_c_100th_to_c_1st']	0.0033685840433752205
+['F1_c_30th_to_c_1st']	0.0015280766656634562
+['F1_c_50th_to_c_1st']	0.0009374524517406156
+['F1_c_90th_to_c_1st']	0.00010677733647862095
+['F2_d_1st']	8.872316346576416e-05
+['F1_c_40th_to_c_1st']	3.060580031971876e-05
+['F1_c_20th_to_c_1st', 'F1_c_60th_to_c_1st', 'F1_c_70th_to_c_1st', 'F1_c_80th_to_c_1st']	0.0
+Train ground truth max	443.0
+Train ground truth min	1.0
+Train ground truth avg	10.372
+Train ground truth missing	0
+Train rmse	7.4374554958470185
+Train mae	0.9790816866370421
+Train mape	0.27303260551776093
+Test ground truth max	443.0
+Test ground truth min	1.0
+Test ground truth avg	9.984
+Test ground truth missing	0
+Test rmse	16.903530704051832
+Test mae	7.35062570317704
+Test mape	2.727025277237115
+multiplier P90.0: 2.2326919844214386
+multiplier P95.0: 5.3613197797778085
+multiplier P96.0: 6.160585780367986
+multiplier P97.0: 9.0
+multiplier P98.0: 11.806698908814539
+multiplier P99.0: 17.0
+multiplier P100.0: 35.0
+fixed_config_perf =	[[25.0, 39.0, 43.0, 56.0, 72.0, 97.0, 443.0], [0.902, 0.952, 0.961, 0.973, 0.981, 0.99, 1.0]]
+early_termination_perf = 	[[25.563, 59.345, 67.627, 93.894, 117.125, 153.149, 230.291], [0.903, 0.955, 0.963, 0.97, 0.981, 0.991, 1.0]]

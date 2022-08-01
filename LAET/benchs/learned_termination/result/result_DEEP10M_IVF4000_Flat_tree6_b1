@@ -1,0 +1,4 @@
+Thread: 1
+Preparing dataset DEEP10M
+sizes: B (10000000, 96) Q (10000, 96) T (10000000, 96) gt 10000 * 1
+loading populated_index/DEEP10M_IVF4000,Flat_populated.index

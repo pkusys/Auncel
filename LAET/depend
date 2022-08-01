@@ -1,0 +1,53 @@
+IndexFlat.o: IndexFlat.cpp IndexFlat.h Index.h utils.h Heap.h \
+  FaissAssert.h FaissException.h AuxIndexStructures.h
+IndexBinary.o: IndexBinary.cpp IndexBinary.h FaissAssert.h \
+  FaissException.h Index.h
+ProductQuantizer.o: ProductQuantizer.cpp ProductQuantizer.h Clustering.h \
+  Index.h Heap.h FaissAssert.h FaissException.h VectorTransform.h \
+  IndexFlat.h utils.h
+Heap.o: Heap.cpp Heap.h
+IndexBinaryFromFloat.o: IndexBinaryFromFloat.cpp IndexBinaryFromFloat.h \
+  IndexBinary.h FaissAssert.h FaissException.h Index.h utils.h Heap.h
+VectorTransform.o: VectorTransform.cpp VectorTransform.h Index.h utils.h \
+  Heap.h FaissAssert.h FaissException.h IndexPQ.h ProductQuantizer.h \
+  Clustering.h PolysemousTraining.h
+AuxIndexStructures.o: AuxIndexStructures.cpp AuxIndexStructures.h Index.h \
+  FaissAssert.h FaissException.h
+hamming.o: hamming.cpp hamming.h Heap.h FaissAssert.h FaissException.h
+IndexReplicas.o: IndexReplicas.cpp IndexReplicas.h Index.h IndexBinary.h \
+  FaissAssert.h FaissException.h ThreadedIndex.h WorkerThread.h \
+  ThreadedIndex-inl.h
+InvertedLists.o: InvertedLists.cpp InvertedLists.h Index.h utils.h Heap.h \
+  FaissAssert.h FaissException.h
+Index.o: Index.cpp IndexFlat.h Index.h FaissAssert.h FaissException.h
+IndexBinaryFlat.o: IndexBinaryFlat.cpp IndexBinaryFlat.h IndexBinary.h \
+  FaissAssert.h FaissException.h Index.h hamming.h Heap.h utils.h \
+  AuxIndexStructures.h
+IndexLSH.o: IndexLSH.cpp IndexLSH.h Index.h VectorTransform.h utils.h \
+  Heap.h hamming.h FaissAssert.h FaissException.h
+FaissException.o: FaissException.cpp FaissException.h
+IndexShards.o: IndexShards.cpp IndexShards.h Index.h IndexBinary.h \
+  FaissAssert.h FaissException.h ThreadedIndex.h WorkerThread.h \
+  ThreadedIndex-inl.h Heap.h
+utils.o: utils.cpp utils.h Heap.h AuxIndexStructures.h Index.h \
+  FaissAssert.h FaissException.h
+PolysemousTraining.o: PolysemousTraining.cpp PolysemousTraining.h \
+  ProductQuantizer.h Clustering.h Index.h Heap.h utils.h hamming.h \
+  FaissAssert.h FaissException.h
+MetaIndexes.o: MetaIndexes.cpp MetaIndexes.h Index.h IndexShards.h \
+  IndexBinary.h FaissAssert.h FaissException.h ThreadedIndex.h \
+  WorkerThread.h ThreadedIndex-inl.h IndexReplicas.h Heap.h \
+  AuxIndexStructures.h
+WorkerThread.o: WorkerThread.cpp WorkerThread.h FaissAssert.h \
+  FaissException.h
+IndexPQ.o: IndexPQ.cpp IndexPQ.h Index.h ProductQuantizer.h Clustering.h \
+  Heap.h PolysemousTraining.h FaissAssert.h FaissException.h \
+  AuxIndexStructures.h hamming.h
+utils_simd.o: utils_simd.cpp utils.h Heap.h
+Clustering.o: Clustering.cpp Clustering.h Index.h AuxIndexStructures.h \
+  utils.h Heap.h FaissAssert.h FaissException.h IndexFlat.h
+GpuClonerOptions.o: gpu/GpuClonerOptions.cpp gpu/GpuClonerOptions.h \
+  gpu/GpuIndicesOptions.h
+RemapIndices.o: gpu/impl/RemapIndices.cpp gpu/impl/RemapIndices.h \
+  gpu/impl/../../FaissAssert.h gpu/impl/../../FaissException.h
+fp16_emu.o: gpu/utils/nvidia/fp16_emu.cu gpu/utils/nvidia/fp16_emu.cuh

@@ -1,0 +1,13 @@
+Thread: 10
+Preparing dataset DEEP10M
+sizes: B (10000000, 96) Q (5000, 96) T (10000000, 96) gt 5000 * 1
+loading populated_index/DEEP10M_IVF1024,Flat_populated.index
+ParameterSpace initialize done
+iteration 0
+paramtersets: ['search_mode=1,pred_max=1024']
+                            R@1    R@10   R@100  time(ms)
+search_mode=1,pred_max=1024 0.7152 0.7152 0.7152 1.1998
+param_list = ['search_mode=1,pred_max=1024']
+recall target = [0.7152]
+average latency(ms) = [1.1998]
+result_DEEP10M_IVF1024,Flat = [[1.1998], [0.7152]]

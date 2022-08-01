@@ -1,0 +1,14 @@
+Thread: 10
+Preparing dataset SIFT1M
+DB size: 1
+sizes: B (1000000, 128) Q (2000, 128) T (1000000, 128) gt 2000 * 1
+loading populated_index/SIFT1M_IVF1024,Flat_populated.index
+ParameterSpace initialize done
+iteration 0
+paramtersets: ['search_mode=1,pred_max=1024']
+                            R@1    R@10   R@100  time(ms)
+search_mode=1,pred_max=1024 0.5855 0.5880 0.5880 0.3637
+param_list = ['search_mode=1,pred_max=1024']
+recall target = [0.588]
+average latency(ms) = [0.3637]
+result_SIFT1M_IVF1024,Flat = [[0.3637], [0.588]]

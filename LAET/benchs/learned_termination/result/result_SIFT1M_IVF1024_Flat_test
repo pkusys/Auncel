@@ -1,0 +1,36 @@
+Thread: 10
+Preparing dataset SIFT1M
+DB size: 1
+sizes: B (1000000, 128) Q (10000, 128) T (1000000, 128) gt 10000 * 1
+loading trained_index/SIFT1M_IVF1024,Flat_trained.index
+add 0:100000, 0.056825876235961914 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 100000:200000, 0.3795928955078125 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 200000:300000, 0.6399271488189697 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 300000:400000, 0.9321777820587158 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 400000:500000, 1.2462501525878906 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 500000:600000, 1.563901424407959 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 600000:700000, 1.848240852355957 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 700000:800000, 2.1057004928588867 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 800000:900000, 2.395268678665161 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+add 900000:1000000, 2.706674575805664 s
+IndexIVFFlat::add_core: added 100000 / 100000 vectors
+Add done in 3.0109851360321045 s
+storing populated_index/SIFT1M_IVF1024,Flat_populated.index
+ParameterSpace initialize done
+iteration 0
+paramtersets: ['search_mode=1,pred_max=1024']
+                            R@1    R@10   R@100  time(ms)
+search_mode=1,pred_max=1024 0.6089 0.6123 0.6123 0.2727
+param_list = ['search_mode=1,pred_max=1024']
+recall target = [0.6123]
+average latency(ms) = [0.2727]
+result_SIFT1M_IVF1024,Flat = [[0.2727], [0.6123]]
