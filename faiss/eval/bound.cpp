@@ -86,6 +86,57 @@ int* ivecs_read(const char* fname, size_t* d_out, size_t* n_out) {
     return (int*)fvecs_read(fname, d_out, n_out);
 }
 
+float* fbin_read(const char* fname, size_t* d_out, size_t* n_out, int num = 10000000, int bytes = 4) {
+    FILE* f = fopen(fname, "r");
+    if (!f) {
+        fprintf(stderr, "could not open %s\n", fname);
+        perror("");
+        abort();
+    }
+    if (bytes == 1){
+        int d,n;
+        fread(&n, sizeof(int), 1, f);
+        fread(&d, sizeof(int), 1, f);
+        printf("d : %d, n: %d\n", d, n);
+        assert((d > 0 && d < 1000000) || !"unreasonable dimension");
+        *d_out = d;
+        *n_out = n;
+        int64_t total_size = int64_t(d) * num;
+        int8_t* x = new int8_t[total_size];
+        int64_t nr = 0;
+        nr += fread(x, bytes, total_size, f);
+        assert(nr == int64_t(d) * num || !"could not read whole file");
+        fclose(f);
+        float* fx = new float[total_size];
+        for (int64_t ij = 0; ij < total_size; ij++){
+            fx[ij] = float(x[ij]);
+        }
+        delete[] x;
+        return fx;
+    }
+    else{
+        int d,n;
+        fread(&n, sizeof(int), 1, f);
+        fread(&d, sizeof(int), 1, f);
+        printf("d : %d, n: %d\n", d, n);
+        assert((d > 0 && d < 1000000) || !"unreasonable dimension");
+        *d_out = d;
+        *n_out = n;
+        int64_t total_size = int64_t(d) * num;
+        float* x = new float[total_size];
+        int64_t nr = 0;
+        nr += fread(x, sizeof(float), total_size, f);
+        assert(nr == int64_t(d) * num || !"could not read whole file");
+        fclose(f);
+        return x;
+    }
+}
+
+// not very clean, but works as long as sizeof(int) == sizeof(float)
+int* ibin_read(const char* fname, size_t* d_out, size_t* n_out, int num = 10000000, int bytes = 4) {
+    return (int*)fbin_read(fname, d_out, n_out, num, bytes);
+}
+
 double elapsed() {
     struct timeval tv;
     gettimeofday(&tv, nullptr);
@@ -361,9 +412,11 @@ int main(int argc,char **argv) {
         }
         if (minf >= (1 - error_bound))
             printf("Error bound is guaranteed\n\n\n");
-        else
+        else{
             printf("NO NO NO !!! Error bound is not guaranteed,\
             please enlarge top-n (i,e, find the next n in th map) \n");
+            return 0;
+        }
 
 
         // Output the latency to file

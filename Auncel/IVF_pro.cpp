@@ -88,7 +88,7 @@ float Trace::search(float k, float std_m){
     // Dealing with upward cross-border situations
     if (k >= trace[trace.size() - 1].first){
         float ampli = k/trace[trace.size() - 1].first;
-        return (trace[trace.size() - 1].second + sc*stds[0])*ampli;
+        return (trace[trace.size() - 1].second + sc*stds[trace.size() - 1])*ampli;
     }
     size_t high = trace.size() - 1, low = 0;
     size_t middle = 0;

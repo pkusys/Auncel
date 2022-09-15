@@ -62,6 +62,57 @@ int* ivecs_read(const char* fname, size_t* d_out, size_t* n_out) {
     return (int*)fvecs_read(fname, d_out, n_out);
 }
 
+float* fbin_read(const char* fname, size_t* d_out, size_t* n_out, int num = 10000000, int bytes = 4) {
+    FILE* f = fopen(fname, "r");
+    if (!f) {
+        fprintf(stderr, "could not open %s\n", fname);
+        perror("");
+        abort();
+    }
+    if (bytes == 1){
+        int d,n;
+        fread(&n, sizeof(int), 1, f);
+        fread(&d, sizeof(int), 1, f);
+        printf("d : %d, n: %d\n", d, n);
+        assert((d > 0 && d < 1000000) || !"unreasonable dimension");
+        *d_out = d;
+        *n_out = n;
+        int64_t total_size = int64_t(d) * num;
+        int8_t* x = new int8_t[total_size];
+        int64_t nr = 0;
+        nr += fread(x, bytes, total_size, f);
+        assert(nr == int64_t(d) * num || !"could not read whole file");
+        fclose(f);
+        float* fx = new float[total_size];
+        for (int64_t ij = 0; ij < total_size; ij++){
+            fx[ij] = float(x[ij]);
+        }
+        delete[] x;
+        return fx;
+    }
+    else{
+        int d,n;
+        fread(&n, sizeof(int), 1, f);
+        fread(&d, sizeof(int), 1, f);
+        printf("d : %d, n: %d\n", d, n);
+        assert((d > 0 && d < 1000000) || !"unreasonable dimension");
+        *d_out = d;
+        *n_out = n;
+        int64_t total_size = int64_t(d) * num;
+        float* x = new float[total_size];
+        int64_t nr = 0;
+        nr += fread(x, sizeof(float), total_size, f);
+        assert(nr == int64_t(d) * num || !"could not read whole file");
+        fclose(f);
+        return x;
+    }
+}
+
+// not very clean, but works as long as sizeof(int) == sizeof(float)
+int* ibin_read(const char* fname, size_t* d_out, size_t* n_out, int num = 10000000, int bytes = 4) {
+    return (int*)fbin_read(fname, d_out, n_out, num, bytes);
+}
+
 /* type = 0 : L2, 1 : IP*/
 size_t inter_sec(size_t max_topk, const float *gt, size_t topk, const float *I, int type = 0){
     size_t res = 0;
@@ -112,42 +163,50 @@ int main(int argc,char **argv) {
         query = "/workspace/data/sift/1M_query.fvecs";
         gtI = "/workspace/data/sift/idx_1M.ivecs";
         gtD = "/workspace/data/sift/dis_1M.fvecs";
+        // db = "/workspace/data/sift/sift1M.bin";
+        // query = "/workspace/data/sift/1M_query.bin";
+        // gtI = "/workspace/data/sift/idx_1M.bin";
+        // gtD = "/workspace/data/sift/dis_1M.bin";
     }
     else if(p1 == "sift10M"){
         db = "/workspace/data/sift/sift10M/sift10M.fvecs";
         query = "/workspace/data/sift/sift10M/query.fvecs";
         gtI = "/workspace/data/sift/sift10M/idx.ivecs";
         gtD = "/workspace/data/sift/sift10M/dis.fvecs";
+        // db = "/workspace/data/sift/sift10M/sift10M.bin";
+        // query = "/workspace/data/sift/sift10M/query.bin";
+        // gtI = "/workspace/data/sift/sift10M/idx.bin";
+        // gtD = "/workspace/data/sift/sift10M/dis.bin";
     }
     else if(p1 == "deep10M"){
         db = "/workspace/data/deep/deep10M.fvecs";
         query = "/workspace/data/deep/query.fvecs";
         gtI = "/workspace/data/deep/idx.ivecs";
         gtD = "/workspace/data/deep/dis.fvecs";
+        // db = "/workspace/data/deep/deep10M.bin";
+        // query = "/workspace/data/deep/query.bin";
+        // gtI = "/workspace/data/deep/idx.bin";
+        // gtD = "/workspace/data/deep/dis.bin";
     }
     else if(p1 == "gist"){
         db = "/workspace/data/gist/gist1M.fvecs";
         query = "/workspace/data/gist/query.fvecs";
         gtI = "/workspace/data/gist/idx.ivecs";
         gtD = "/workspace/data/gist/dis.fvecs";
-    }
-    else if(p1 == "spacev"){
-        db = "/workspace/data/spacev/spacev10M.fvecs";
-        query = "/workspace/data/spacev/query.fvecs";
-        gtI = "/workspace/data/spacev/idx.ivecs";
-        gtD = "/workspace/data/spacev/dis.fvecs";
-    }
-    else if(p1 == "glove"){
-        db = "/workspace/data/glove/glove.fvecs";
-        query = "/workspace/data/glove/query.fvecs";
-        gtI = "/workspace/data/glove/idx.ivecs";
-        gtD = "/workspace/data/glove/dis.fvecs";
+        // db = "/workspace/data/gist/gist1M.bin";
+        // query = "/workspace/data/gist/query.bin";
+        // gtI = "/workspace/data/gist/idx.bin";
+        // gtD = "/workspace/data/gist/dis.bin";
     }
     else if(p1 == "text"){
         db = "/workspace/data/text/text10M.fvecs";
         query = "/workspace/data/text/query.fvecs";
         gtI = "/workspace/data/text/idx.ivecs";
         gtD = "/workspace/data/text/dis.fvecs";
+        // db = "/workspace/data/text/text10M.bin";
+        // query = "/workspace/data/text/query.bin";
+        // gtI = "/workspace/data/text/idx.bin";
+        // gtD = "/workspace/data/text/dis.bin";
     }
     else{
         printf("Your dataset name is illegal\n");
@@ -169,6 +228,13 @@ int main(int argc,char **argv) {
 
         size_t nt;
         float* xt = fvecs_read(db.c_str(), &d, &nt);
+        // float* xt;
+        // if (p1 == "sift1M")
+        //     xt = fbin_read(db.c_str(), &d, &nt, 1000000, 1);
+        // else if (p1 == "sift10M")
+        //     xt = fbin_read(db.c_str(), &d, &nt, 10000000, 1);
+        // else
+        //     xt = fbin_read(db.c_str(), &d, &nt);
 
         printf("[%.3f s] Preparing index \"%s\" d=%ld\n",
                elapsed() - t0,
@@ -207,6 +273,14 @@ int main(int argc,char **argv) {
 
         size_t nb, d2;
         float* xb = fvecs_read(db.c_str(), &d2, &nb);
+        // float* xb;
+        // if (p1 == "sift1M")
+        //     xb = fbin_read(db.c_str(), &d2, &nb, 1000000, 1);
+        // else if (p1 == "sift10M")
+        //     xb = fbin_read(db.c_str(), &d2, &nb, 10000000, 1);
+        // else
+        //     xb = fbin_read(db.c_str(), &d2, &nb);
+
         assert(d == d2 || !"dataset does not have same dimension as train set");
 
         printf("[%.3f s] Indexing database, size %ld*%ld\n",
@@ -227,6 +301,11 @@ int main(int argc,char **argv) {
 
         size_t d2;
         xq = fvecs_read(query.c_str(), &d2, &nq);
+        // float* xq;
+        // if (p1 == "sift1M" || p1 == "sift10M")
+        //     xq = fbin_read(query.c_str(), &d2, &nq, 10000, 1);
+        // else
+        //     xq = fbin_read(query.c_str(), &d2, &nq, 10000);
         assert(d == d2 || !"query does not have same dimension as train set");
     }
 
@@ -241,6 +320,8 @@ int main(int argc,char **argv) {
         // load ground-truth and convert int to long
         size_t nq2;
         int* gt_int = ivecs_read(gtI.c_str(), &k, &nq2);
+        // int* gt_int;
+        // gt_int = ibin_read(gtI.c_str(), &k, &nq2, 10000);
         assert(nq2 == nq || !"incorrect nb of ground truth entries");
 
         gt = new faiss::Index::idx_t[k * nq];
@@ -258,6 +339,7 @@ int main(int argc,char **argv) {
 
         size_t nq3;
         gt_v = fvecs_read(gtD.c_str(), &kk, &nq3);
+        // gt_v = fbin_read(gtD.c_str(), &kk, &nq3, 10000);
         assert(kk == k || !"gt diatance does not have same dimension as gt IDs");
         assert(nq3 == nq || !"incorrect nb of ground truth entries");
     }
