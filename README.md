@@ -18,7 +18,7 @@ This repository contains one version of the source code for our NSDI'23 paper "F
 - Software<br>
   - Intel MKL & clang & OpenMP<br>
 - Datasets<br>  
-    - The 10M-dataset is a random 10M slice of the whole 1B-dataset ([SIFT](http://corpus-texmex.irisa.fr/) [DEEP](https://research.yandex.com/datasets/biganns) [TEXT](https://big-ann-benchmarks.com/) [GIST](http://corpus-texmex.irisa.fr/)). You can download the preprocessed(e.g., normalized for text) datasets here [data-link-1](https://disk.pku.edu.cn/#/link/A872A42BA875127DB9DC940A6557B1E6) or [data-link-2](https://pan.baidu.com/s/13HuAqeyTXWduBopm22187g)(7w3r) (I recommend you to use the provided datasets if you want to use our configuration)
+    - The 10M-dataset is a random 10M slice of the whole 1B-dataset ([SIFT](http://corpus-texmex.irisa.fr/) [DEEP](https://research.yandex.com/datasets/biganns) [TEXT](https://big-ann-benchmarks.com/) [GIST](http://corpus-texmex.irisa.fr/)). You can download the preprocessed(e.g., normalized for text) datasets here [data-link-1](https://disk.pku.edu.cn/link/AAD0A67DE2E7984DB5B5D4885871219AEF) or [data-link-2](https://pan.baidu.com/s/13HuAqeyTXWduBopm22187g)(7w3r) (I recommend you to use the provided datasets if you want to use our configuration)
 
 ## 4. How to run<br>
 
